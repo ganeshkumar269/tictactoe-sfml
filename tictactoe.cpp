@@ -133,7 +133,7 @@ int returnOptimal(int arr[][3]){ // return an optimal index
     v=checkForTwo(arrd2);
      if(v!=-1){
         cout<<"Computer Thinks "<<v<<","<<v<<" as the best move"<<endl;
-        return v+v*3;
+        return 2-v+v*3;        //edited from (v+v*3) to 2-v +v*3
     }
     int r = returnRandom(arr);
     cout<<"Computer fetched a random value"<<r/3<<","<<r%3<<endl;
