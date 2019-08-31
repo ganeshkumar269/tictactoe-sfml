@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
-#include "tictactoe.cpp"
+#include <iostream>
+#include <stdio.h>
+#include "tictactoe.h"
 int main(){
     srand(time(NULL));
     sf::RenderWindow window(sf::VideoMode(300,300),"TicTacToe",sf::Style::Close | sf::Style::Resize);

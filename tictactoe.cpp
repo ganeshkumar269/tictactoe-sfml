@@ -1,10 +1,10 @@
 #include<iostream>
 #include<conio.h>
+#include "tictactoe.h"
 #include <time.h>
-using namespace std;
+//#include "tictactoe.h"
 //X is represented as -1 an empty cell is represented as a 0 and an O is represented as a 1
-
-    void returnTranspose(int arr[][3],int arr2[][3]){ // takes an input matrix arr and converts arr2 to transpose of arr
+void returnTranspose(int arr[][3],int arr2[][3]){ // takes an input matrix arr and converts arr2 to transpose of arr
     for(int i=0;i<3;i++)
         for(int j=0;j<3;j++)
             arr2[i][j]=arr[j][i];
@@ -18,13 +18,13 @@ void prettyprint(int a[][3]){//prints the grid
     for(int i=0;i<3;i++){
     for(int j=0;j<3;j++){
         if(a[i][j]==0)
-            cout<<"\t"<<"_";
+            std::cout<<"\t"<<"_";
         else if(a[i][j]==-1)
-            cout<<"\tX";
+            std::cout<<"\tX";
         else
-            cout<<"\tO";
+            std::cout<<"\tO";
     }
-    cout<<endl;
+    std::cout<<std::endl;
     }
 }
 int returnRandom(int arr[][3]){ // generates a random index 1-9 which is not already occupied in the grid
@@ -48,21 +48,21 @@ bool gameOver(int arr[][3]){ // returns true if the game is over
     for(int i=0;i<3;i++){
         int tmp1=isSame(arr[i]),tmp2=isSame(arr2[i]);
         if(tmp1 == -1 || tmp2 == -1){
-            cout<<"Player Wins the Game, Congratulations"<<endl;
+            std::cout<<"Player Wins the Game, Congratulations"<<std::endl;
             return true;
         }
         if(tmp1 == 1 || tmp2 == 1){
-            cout<<"Computer Wins the Game, We'll take over the world soon"<<endl;
+            std::cout<<"Computer Wins the Game, We'll take over the world soon"<<std::endl;
             return true;
         }
     }
     int tmp=checkDiagnols(arr);
     if(tmp == -1){
-            cout<<"Player Wins the Game, Congratulations"<<endl;
+            std::cout<<"Player Wins the Game, Congratulations"<<std::endl;
             return true;
         }
         if(tmp == 1){
-            cout<<"Computer Wins the Game, We'll take over the world soon"<<endl;
+            std::cout<<"Computer Wins the Game, We'll take over the world soon"<<std::endl;
             return true;
         }
 
@@ -76,45 +76,45 @@ int checkForTwo(int a[3]){ // it check the given row whether it has 2 instances 
             else if(a[i]==1)
                 o++;
         }
-        cout<<"No.of X s:"<<x<<"- No.of O s:"<<o<<endl;
+        std::cout<<"No.of X s:"<<x<<"- No.of O s:"<<o<<std::endl;
         if((x+o) == 2){
             if(o == 2){
                 for(int k=0;k<3;k++)
                     if(a[k] == 0){
-                        cout<<"return value:"<<k<<endl;
+                        std::cout<<"return value:"<<k<<std::endl;
                         return k;
                     }
             }
             else if(x == 2){
                 for(int k=0;k<3;k++)
                     if(a[k] == 0){
-                        cout<<"return value:"<<k<<endl;
+                        std::cout<<"return value:"<<k<<std::endl;
                         return k;
                     }
             }
         }
-    cout<<"return value:-1"<<endl;
+    std::cout<<"return value:-1"<<std::endl;
     return -1;
 }
 int returnOptimal(int arr[][3]){ // return an optimal index
-    cout<<"Computer doing checkForTwo"<<endl;
+    std::cout<<"Computer doing checkForTwo"<<std::endl;
     int v;
     for(int i=0;i<3;i++){
-        cout<<"Computer Checking "<<i<<" row"<<endl;
+        std::cout<<"Computer Checking "<<i<<" row"<<std::endl;
         v=checkForTwo(arr[i]);
         if(v!=-1){
-            cout<<"Computer Thinks "<<i<<","<<v<<" as the best move"<<endl;
+            std::cout<<"Computer Thinks "<<i<<","<<v<<" as the best move"<<std::endl;
             return i*3+v;
         }
     }
     int arr2[3][3];
     returnTranspose(arr,arr2);
-    cout<<"Computer doing checkForTwo for Transpose"<<endl;
+    std::cout<<"Computer doing checkForTwo for Transpose"<<std::endl;
     for(int i=0;i<3;i++){
-        cout<<"Computer Checking "<<i<<" row"<<endl;
+       std:: cout<<"Computer Checking "<<i<<" row"<<std::endl;
         v=checkForTwo(arr2[i]);
         if(v!=-1){
-            cout<<"Computer Thinks "<<v<<","<<i<<" as the best move"<<endl;
+           std:: cout<<"Computer Thinks "<<v<<","<<i<<" as the best move"<<std::endl;
             return i+v*3;
         }
     }
@@ -123,20 +123,20 @@ int returnOptimal(int arr[][3]){ // return an optimal index
         arrd1[i]=arr[i][i];
         arrd2[i]=arr[i][2-i];
     }
-    cout<<"Computer Checking 1st diagonal"<<endl;
+    std::cout<<"Computer Checking 1st diagonal"<<std::endl;
     v=checkForTwo(arrd1);
     if(v!=-1){
-        cout<<"Computer Thinks "<<v<<","<<v<<" as the best move"<<endl;
+        std::cout<<"Computer Thinks "<<v<<","<<v<<" as the best move"<<std::endl;
         return v*3+v;
     }
-    cout<<"Computer Checking 2nd diagonal"<<endl;
+    std::cout<<"Computer Checking 2nd diagonal"<<std::endl;
     v=checkForTwo(arrd2);
      if(v!=-1){
-        cout<<"Computer Thinks "<<v<<","<<v<<" as the best move"<<endl;
-        return 2-v+v*3;        //edited from (v+v*3) to 2-v +v*3
+        std::cout<<"Computer Thinks "<<v<<","<<(2-v)<<" as the best move"<<std::endl;
+        return ((2-v)+v*3);        //edited from (v+v*3) to 2-v +v*3
     }
     int r = returnRandom(arr);
-    cout<<"Computer fetched a random value"<<r/3<<","<<r%3<<endl;
+    std::cout<<"Computer fetched a random value"<<r/3<<","<<r%3<<std::endl;
     return r;
 }
 bool isFull(int arr[][3]){ //checks if the grid is full and can no longer be played
@@ -168,7 +168,7 @@ bool isFull(int arr[][3]){ //checks if the grid is full and can no longer be pla
             continue;
         }
         arr[i][j]=-1;
-        cout<<"Your Move: ("<<i<<","<<j<<")"<<endl;
+        cout<std::<"Your Move: ("<<i<<","<<j<<")"<<endl;
         if(gameOver(arr))
             break;
         if(isFull(arr)){

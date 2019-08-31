@@ -41,6 +41,7 @@
 			<Add directory="$(#sfml.BASE)/lib" />
 		</Linker>
 		<Unit filename="main.cpp" />
+		<Unit filename="tictactoe.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
